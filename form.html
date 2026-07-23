@@ -1,0 +1,178 @@
+<!--Your Task Description
+ 
+Build an input form using Html, CSS, JavaScript containing the following 9 fields: (incorporating a variety of events such as onKeyUp, or onKeyDown):
+ 
+- Full Name (Text input)
+- Email Address (Email input)
+- Password (Password input)
+- Phone Number (Tel input)
+- Role / Experience Level (Select dropdown) – Options like Junior, Mid-Level, Senior, or Lead.
+- Primary Skill / Tech Stack (Radio buttons) – Options to select one primary choice (e.g., Python, JavaScript, Go, Rust).
+- Areas of Interest (Checkbox group) – Multi-select options (e.g., Backend, Frontend, AI/ML, DevOps).
+- Years of Experience (Text input)
+- Short Bio (Textarea)
+ 
+Include a submit button with an onClick event handler that records the entire set of information, validates it and stores in localStorage.
+Afterwards, dynamically display all stored user information in a summary section directly below the form.-->
+
+<html>
+    <head>
+        <title>practice</title>
+        <style>
+            body{
+    font-family: Arial;
+    background-color: #bbbbbb;
+    padding:20px;
+}
+
+.container{
+    width:500px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-sizing: border-box;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
+button{
+    padding:10px 20px;
+    background:blue;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:darkblue;
+}
+
+.summary{
+    margin-top:30px;
+    padding:15px;
+    background:#f0d2e4;
+}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2> MY Form</h2>
+            <form>
+                <label> <b>Full name</b></label>
+                <input type="text", id="name" onkeyup="return nametyped()">
+                <br><br>
+                <label><b> Email</b></label>
+                <input type="email", id="email" onkeydown="return emailtyped()">
+                <br><br>
+                <label> <b>Password</b></label>
+                <input type="password", id="password">
+                <br><br>
+                <label><b>Phone number</b></label>
+                <input type="tel" id="phone">
+                <br><br>
+                <label><b>Role / Experience Level</b></label>
+                <select id="role">
+                    <option>junior</option>
+                    <option>Mid level</option>
+                    <option>Senior</option>
+                    <option>Lead</option>
+                </select>
+                <br><hr>
+                <label><b>Primary Skill / Tech Stack</b></label>
+                <input type="radio" class="skill" value="python">python</input>
+                <input type="radio" class="skill" value="javascript">javascript</input>
+                <input type="radio" class="skill" value="Go">Go</input>
+                <input type="radio" class="skill" value="Rag">Rag</input>
+                <br>
+                <hr>
+                <label><b>Areas of Interest</b></label>
+                <input type="checkbox" class="interest" value="backend">backend</input>
+                <input type="checkbox" class="interest" value="frontend">frontend</input>
+                <input type="checkbox" class="interest" value="ai/ml">AI/ML</input>
+                <input type="checkbox" class="interest" value="Devops">Devops</input>
+                <br><hr>
+                <label><b>Years of experience</b></label>
+                <input type="text" id="experience">
+                <br><br>
+                <label><b>Short bio</b></label>
+                <textarea id="bio"></textarea>
+
+                <button type="button" onclick="saveData()">Submit</button>
+            
+            </form>
+            <div class="summary" id="output">
+
+            </div><h3>Details</h3>
+        </div>
+    </div>
+    <script>
+    function nametyped(){
+    console.log("Typed Name...");
+}
+    function emailtyped(){
+    console.log("Typing email...");
+} 
+    function saveData(){
+
+    let name=document.getElementById("name").value;
+    let email=document.getElementById("email").value;
+    let password=document.getElementById("password").value;
+    let phone=document.getElementById("phone").value;
+    let role=document.getElementById("role").value;
+    let experience=document.getElementById("experience").value;
+    let bio=document.getElementById("bio").value;
+
+    if(name=="" || email=="" || password=="" || phone=="" || role==""){
+        alert("Please fill all required fields.");
+        return;
+    }
+   
+        const skill = document.querySelector('input[name="skill"]:checked')?.value || "";
+
+
+        const interests = Array.from(
+        document.querySelectorAll('.interest:checked'), 
+        input => input.value
+);
+
+
+const user = {
+  name,
+  email,
+  password,
+  phone,
+  role,
+  skill,
+  interests, 
+  experience,
+  bio
+};
+localStorage.setItem("developerdata",JSON.stringify(user));
+
+    let data=JSON.parse(localStorage.getItem("developerdata"));
+
+    document.getElementById("output").innerHTML=
+    "<h3>Submitted information</h3>"+
+    "<p><b>Full name:</b> "+data.name+"</p>"+
+    "<p><b>Email:</b> "+data.email+"</p>"+
+    "<p><b>Password:</b> "+data.password+"</p>"+
+    "<p><b>Phone:</b> "+data.phone+"</p>"+
+    "<p><b>Role:</b> "+data.role+"</p>"+
+    "<p><b>Primary skill:</b> "+data.skill+"</p>"+
+    "<p><b>Areas of interest:</b> "+data.interests+"</p>"+
+    "<p><b>Years of experience:</b> "+data.experience+"</p>"+
+    "<p><b>Short bio:</b> "+data.bio+"</p>";
+
+    alert("Data is saved!"); 
+}
+
+     
+    </script>
+    </body>
+</html>
