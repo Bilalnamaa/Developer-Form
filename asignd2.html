@@ -1,0 +1,235 @@
+<html>
+    <head>
+        <title>My form using JS</title>
+    </head>
+    <body>
+
+        <div class ="container" id = "container"></div>
+        <script>
+            const style = document.createElement("style");
+        style.textContent =
+            "body{ font-family: Arial; background-color: #bbbbbb; padding:20px; }" +
+            ".container{ width:500px; margin:auto; background:white; padding:20px; border-radius:10px; }" +
+            "input, select, textarea{ width:100%; padding:8px; margin-top:5px; margin-bottom:15px; }" +
+            "button{ padding:10px 20px; background:blue; color:white; border-radius:5px; cursor:pointer; }" +
+            "button:hover{ background:darkblue; }" +
+            ".summary{ margin-top:30px; padding:15px; background:#f0d2e4; }";
+        document.head.appendChild(style);
+
+
+            const container = document.createElement("div")
+            container.className="container"
+            document.body.appendChild(container);
+
+            const heading=document.createElement("h2")
+            heading.textContent="My form in JS"
+            container.appendChild(heading);
+
+            const form =document.createElement("form")
+            container.appendChild(form);
+
+            const nlabel = document.createElement("label")
+            nlabel.innerHTML="<b>Full name</b>"
+            form.appendChild(nlabel);
+            const ninput = document.createElement("input")
+            ninput.type ="text"
+            ninput.id="name"
+            ninput.addEventListener("keyup",nametyped)
+            form.appendChild(ninput);
+
+            form.appendChild(document.createElement("br"));
+
+            const eLabel = document.createElement("label")
+            eLabel.innerHTML = "<b>Email</b>"
+            form.appendChild(eLabel);
+
+            const eInput = document.createElement("input")
+            eInput.type = "email"
+            eInput.id = "email"
+            eInput.addEventListener("keydown", emailtyped)
+            form.appendChild(eInput);
+
+            form.appendChild(document.createElement("br"))
+
+            const pLabel = document.createElement("label")
+            pLabel.innerHTML = "<b>Password</b>"
+            form.appendChild(pLabel);
+
+            const pInput = document.createElement("input")
+            pInput.type = "password"
+            pInput.id = "password"
+            form.appendChild(pInput);
+
+            form.appendChild(document.createElement("br"));
+
+            const phoneLabel = document.createElement("label")
+            phoneLabel.innerHTML = "<b>Phone number</b>"
+            form.appendChild(phoneLabel);
+
+            const phoneInput = document.createElement("input")
+            phoneInput.type = "tel"
+            phoneInput.id = "phone"
+            form.appendChild(phoneInput);
+
+            form.appendChild(document.createElement("br"));
+
+
+
+            const roleLabel = document.createElement("label")
+            roleLabel.innerHTML = "<b>Role / Experience Level</b>"
+            form.appendChild(roleLabel);
+            const roleSelect = document.createElement("select")
+            roleSelect.id = "role";
+
+            const rolesList = ["Junior", "Mid-Level", "Senior", "Lead"]
+            for (let i = 0; i < rolesList.length; i++) {
+            const option = document.createElement("option")
+            option.textContent = rolesList[i]
+            roleSelect.appendChild(option)
+            }
+            form.appendChild(roleSelect);
+
+            form.appendChild(document.createElement("hr"));
+
+
+
+            const skillLabel = document.createElement("label")
+            skillLabel.innerHTML = "<b>Primary Skill / Tech Stack</b>"
+            form.appendChild(skillLabel)
+            form.appendChild(document.createElement("br"));
+
+            const skillsList = ["Python", "JavaScript", "Go", "Rust"];
+            for (let i = 0; i < skillsList.length; i++) {
+            const radio = document.createElement("input")
+            radio.type = "radio"
+            radio.name = "skill"
+            radio.className = "skill"
+            radio.value = skillsList[i]
+
+            form.appendChild(radio)
+            form.appendChild(document.createTextNode(" " + skillsList[i] + " "))
+            }
+
+            form.appendChild(document.createElement("br"));
+            form.appendChild(document.createElement("hr"));
+
+
+            const interestLabel = document.createElement("label")
+            interestLabel.innerHTML = "<b>Areas of Interest</b>"
+            form.appendChild(interestLabel)
+            form.appendChild(document.createElement("br"));
+
+            const interestsList = ["Backend", "Frontend", "AI/ML", "DevOps"]
+            for (let i = 0; i < interestsList.length; i++) {
+            const box = document.createElement("input")
+            box.type = "checkbox"
+            box.className = "interest"
+            box.value = interestsList[i];
+
+            form.appendChild(box)
+            form.appendChild(document.createTextNode(" " + interestsList[i] + " "));
+            }
+            form.appendChild(document.createElement("br"));
+            form.appendChild(document.createElement("hr"));
+
+
+            const expLabel = document.createElement("label")
+            expLabel.innerHTML = "<b>Years of experience</b>"
+            form.appendChild(expLabel);
+
+            const expInput = document.createElement("input")
+            expInput.type = "text"
+            expInput.id = "experience"
+            form.appendChild(expInput);
+
+            form.appendChild(document.createElement("br"));
+
+
+            const bioLabel = document.createElement("label")
+            bioLabel.innerHTML = "<b>Short bio</b>"
+            form.appendChild(bioLabel);
+
+            const bioInput = document.createElement("textarea");
+            bioInput.id = "bio";
+            form.appendChild(bioInput);
+
+
+            const submitBtn = document.createElement("button");
+            submitBtn.type = "button";
+            submitBtn.textContent = "Submit";
+            submitBtn.addEventListener("click", saveData);
+            form.appendChild(submitBtn);
+
+            const output = document.createElement("div");
+            output.className = "summary";
+            output.id = "output";
+            container.appendChild(output);
+
+            <!--creating functions now-->
+
+            function nametyped(){
+    console.log("Typed Name...");
+}
+    function emailtyped(){
+    console.log("Typing email...");
+} 
+    function saveData(){
+
+    let name=document.getElementById("name").value;
+    let email=document.getElementById("email").value;
+    let password=document.getElementById("password").value;
+    let phone=document.getElementById("phone").value;
+    let role=document.getElementById("role").value;
+    let experience=document.getElementById("experience").value;
+    let bio=document.getElementById("bio").value;
+
+    if(name=="" || email=="" || password=="" || phone=="" || role==""){
+        alert("Please fill all required fields.");
+        return;
+    }
+   
+        const skill = document.querySelector('input[name="skill"]:checked')?.value || "";
+
+
+        const interests = Array.from(
+        document.querySelectorAll('.interest:checked'), 
+        input => input.value
+);
+
+
+const user = {
+  name,
+  email,
+  password,
+  phone,
+  role,
+  skill,
+  interests, 
+  experience,
+  bio
+};
+localStorage.setItem("developerdata",JSON.stringify(user));
+
+    let data=JSON.parse(localStorage.getItem("developerdata"));
+
+    document.getElementById("output").innerHTML=
+    "<h3>Submitted information</h3>"+
+    "<p><b>Full name:</b> "+data.name+"</p>"+
+    "<p><b>Email:</b> "+data.email+"</p>"+
+    "<p><b>Password:</b> "+data.password+"</p>"+
+    "<p><b>Phone:</b> "+data.phone+"</p>"+
+    "<p><b>Role:</b> "+data.role+"</p>"+
+    "<p><b>Primary skill:</b> "+data.skill+"</p>"+
+    "<p><b>Areas of interest:</b> "+data.interests+"</p>"+
+    "<p><b>Years of experience:</b> "+data.experience+"</p>"+
+    "<p><b>Short bio:</b> "+data.bio+"</p>";
+
+    alert("Data is saved!"); 
+}
+
+
+
+
+        </script>
+    </body>
+</html>
